@@ -1,18 +1,16 @@
 package com.github.iam20.core;
 
-import com.github.iam20.thread.ConnectionListener;
-import com.github.iam20.thread.CommandThread;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.Scanner;
 
+import com.github.iam20.thread.ConnectionListener;
+import com.github.iam20.thread.CommandThread;
+
 public class Application {
-	private final static Logger logger = LoggerFactory.getLogger(Application.class);
 	public static String recentIpAddr;
 	public static int recentPortAddr;
+	private static int MY_PORT = 18080;
 	public final static Scanner scanner = new Scanner(System.in);
 
 	public static void run() throws IOException {
@@ -20,9 +18,13 @@ public class Application {
 	}
 
 	public static void run(int port) throws IOException {
+		MY_PORT = port;
 		ServerSocket server = new ServerSocket(port);
+		CommandThread.makeCommandThread(scanner).start();
+		ConnectionListener.makeThread(server).start();
+	}
 
-		CommandThread.makeCommandThread(scanner).run();
-		ConnectionListener.makeThread(server).run();
+	public static int getMyPort() {
+		return MY_PORT;
 	}
 }
