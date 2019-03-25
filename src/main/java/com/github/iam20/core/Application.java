@@ -24,6 +24,11 @@ public class Application {
 		ConnectionListener.makeThread(server).start();
 	}
 
+	public static synchronized void setRecentAddr(String ipAddr, int portAddr) {
+		recentIpAddr = ipAddr;
+		recentPortAddr = portAddr;
+	}
+
 	public static int getMyPort() {
 		return MY_PORT;
 	}

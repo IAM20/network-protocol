@@ -71,13 +71,13 @@ public class CommandThread {
 
 	private static void printHelpMessage() {
 		String helpMessage =
-				"=======================================\n" +
-				"h | help : manuals\n" +
-				"r | reply: reply to the most recent sender\n" +
+				"====================================================================================\n" +
+				"h | help                         : manuals\n" +
+				"r | reply                        : reply to the most recent sender\n" +
 				"(c | connect) ip-address(?:port) : connect to ip-address, port default port is 18080\n" +
-				"q | quit : close the connection\n" +
-				"Q | QUIT : close the application\n" +
-				"=======================================";
+				"q | quit                         : close the connection\n" +
+				"Q | QUIT                         : close the application\n" +
+				"====================================================================================";
 
 		System.out.println(helpMessage);
 	}

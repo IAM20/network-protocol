@@ -54,9 +54,11 @@ public class SocketThreadManager {
 					}
 					String[] splitedMessage = message.split(" ", 2);
 
-					Application.recentPortAddr = Integer.parseInt(splitedMessage[0]);
-					Application.recentIpAddr = connectionSocket.getInetAddress().getHostAddress();
-					String senderName = Application.recentIpAddr + ":" + Application.recentPortAddr + " sends a message";
+					int receivedPortAddr = Integer.parseInt(splitedMessage[0]);
+
+					Application.setRecentAddr(ipAddr, receivedPortAddr);
+
+					String senderName = ipAddr + ":" + receivedPortAddr + " sends a message";
 					String realMessage = splitedMessage[1];
 
 					if (splitedMessage[1].equals("q")) {
