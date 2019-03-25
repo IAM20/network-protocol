@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-public class ServerSocketUnit {
+public class SocketThreadManager {
 	public static Thread writeThread(Socket connectionSocket) {
 		return new Thread(() -> {
 			try {
@@ -16,6 +16,9 @@ public class ServerSocketUnit {
 				DataOutputStream outputStream = new DataOutputStream(connectionSocket.getOutputStream());
 				while (connectionSocket.isConnected()) {
 					sentence = Application.scanner.nextLine();
+					if (sentence.equals("q")) {
+						break;
+					}
 					outputStream.writeBytes(sentence + "\n");
 				}
 			} catch (IOException e) {
