@@ -1,6 +1,7 @@
 # intellij
 *.iml
 .idea/
+.DS_Store
 
 # binary
 target/
