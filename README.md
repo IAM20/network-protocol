@@ -1,7 +1,9 @@
 ## P2P chatting application
 --------
 
-![example](pic/example.gif)
+<p align=center>
+<img src="pic/example.gif"/>
+</p>
 
 ### How to build?
 > If you have maven
