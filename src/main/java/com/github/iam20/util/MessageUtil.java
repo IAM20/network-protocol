@@ -30,4 +30,16 @@ public class MessageUtil {
 		buf.append("|\n");
 		return buf.toString();
 	}
+
+	public static String makeWriteMessage(String receiverName, String realMessage) {
+		String receiverNameMessage = "You send the message to " + receiverName;
+		String convertedMessage = makeMessage(receiverNameMessage, realMessage);
+		String[] convertedMessages = convertedMessage.split("\n");
+		StringBuilder buf = new StringBuilder();
+
+		for (String str : convertedMessages) {
+			buf.append("\t\t\t").append(str).append("\n");
+		}
+		return buf.toString();
+	}
 }
