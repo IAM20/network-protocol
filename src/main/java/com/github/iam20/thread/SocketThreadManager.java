@@ -8,30 +8,35 @@ import java.net.Socket;
 
 import com.github.iam20.core.Application;
 import com.github.iam20.util.MessageUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SocketThreadManager {
+	private static final Logger logger = LoggerFactory.getLogger(SocketThreadManager.class);
+
 	public static Thread writeThread(Socket connectionSocket) {
 		return new Thread(() -> {
 			try {
 				DataOutputStream outputStream = new DataOutputStream(connectionSocket.getOutputStream());
+				String connection = connectionSocket.getInetAddress().getHostAddress();
+				connection += ":" + connectionSocket.getPort();
 				while (connectionSocket.isConnected()) {
 					String sentence = Application.scanner.nextLine();
 					if (sentence.equals("q")) {
-						String connection = connectionSocket.getInetAddress().getHostAddress();
-						connection += ":" + connectionSocket.getPort();
-						System.out.println("Quit connection from " + connection + " now your standard input is free!");
+						logger.info("Quit connection from " + connection + " now your standard input is free!");
 						outputStream.writeBytes(Application.getMyPort() + " q\n");
 						break;
 					}
 					outputStream.writeBytes(Application.getMyPort() + " " + sentence + "\n");
+					System.out.println(MessageUtil.makeWriteMessage(connection, sentence));
 				}
 			} catch (IOException e) {
-				System.out.println(e.getMessage());
+				logger.error(e.getMessage());
 			}
 			try {
 				connectionSocket.close();
 			} catch (IOException e) {
-				System.out.println(e.getMessage());
+				logger.error(e.getMessage());
 			}
 		});
 	}
@@ -48,8 +53,8 @@ public class SocketThreadManager {
 						int port = connectionSocket.getPort();
 						ipAddr += ":" + port;
 
-						System.err.println("Unexpected closed connection T_T from " + ipAddr);
-						System.err.println("    Close the connection...");
+						logger.error("Unexpected closed connection T_T from " + ipAddr);
+						logger.error("    Close the connection...");
 						break;
 					}
 					String[] splitedMessage = message.split(" ", 2);
@@ -62,7 +67,7 @@ public class SocketThreadManager {
 					String realMessage = splitedMessage[1];
 
 					if (splitedMessage[1].equals("q")) {
-						System.out.println("Close the listening connection from " + ipAddr + ":" + splitedMessage[0]);
+						logger.info("Close the listening connection from " + ipAddr + ":" + splitedMessage[0]);
 						break;
 					}
 

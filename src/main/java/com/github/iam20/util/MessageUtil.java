@@ -38,7 +38,7 @@ public class MessageUtil {
 		StringBuilder buf = new StringBuilder();
 
 		for (String str : convertedMessages) {
-			buf.append("\t\t\t").append(str).append("\n");
+			buf.append("\t\t\t\t").append(str).append("\n");
 		}
 		return buf.toString();
 	}

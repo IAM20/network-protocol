@@ -4,8 +4,11 @@ import java.net.Socket;
 import java.util.Scanner;
 
 import com.github.iam20.core.Application;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CommandThread {
+	private static final Logger logger = LoggerFactory.getLogger(CommandThread.class);
 	public static Thread makeCommandThread(Scanner scanner) {
 		return new Thread(() -> {
 			while (true) {
@@ -31,14 +34,14 @@ public class CommandThread {
 	private static void reply() {
 		try {
 			Socket socket = new Socket(Application.recentIpAddr, Application.recentPortAddr);
-			System.out.println("Successfully connect to " + Application.recentIpAddr + ":" + Application.recentPortAddr);
-			System.out.println("Now your standard input will send to " + Application.recentIpAddr + ":" + Application.recentPortAddr);
+			logger.info("Successfully connect to " + Application.recentIpAddr + ":" + Application.recentPortAddr);
+			logger.info("Now your standard input will send to " + Application.recentIpAddr + ":" + Application.recentPortAddr);
 
 			Thread thread = SocketThreadManager.writeThread(socket);
 			thread.start();
 			thread.join();
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -52,14 +55,14 @@ public class CommandThread {
 			try {
 				int portNumber = (commands.length == 1) ? 18080 : Integer.parseInt(commands[1]);
 				socket = new Socket(commands[0], portNumber);
-				System.out.println("Successfully connect to " + commands[0] + ":" + portNumber);
-				System.out.println("Now your standard input will send to " + commands[0] + ":" + portNumber);
+				logger.info("Successfully connect to " + commands[0] + ":" + portNumber);
+				logger.info("Now your standard input will send to " + commands[0] + ":" + portNumber);
 
 				Thread thread = SocketThreadManager.writeThread(socket);
 				thread.start();
 				thread.join();
 			} catch (Exception e) {
-				System.err.println(e.getMessage());
+				logger.error(e.getMessage());
 			}
 		}
 	}
