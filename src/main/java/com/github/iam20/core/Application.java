@@ -8,8 +8,8 @@ import com.github.iam20.thread.ConnectionListener;
 import com.github.iam20.thread.CommandThread;
 
 public class Application {
-	public static String recentIpAddr;
-	public static int recentPortAddr;
+	private static String recentIpAddr = "";
+	private static int recentPortAddr = 0;
 	private static int MY_PORT = 18080;
 	public final static Scanner scanner = new Scanner(System.in);
 
@@ -27,6 +27,12 @@ public class Application {
 	public static synchronized void setRecentAddr(String ipAddr, int portAddr) {
 		recentIpAddr = ipAddr;
 		recentPortAddr = portAddr;
+	}
+
+	public static synchronized String[] getRecentAddr() {
+		return new String[]{
+				recentIpAddr, Integer.toString(recentPortAddr)
+		};
 	}
 
 	public static int getMyPort() {

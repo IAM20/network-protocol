@@ -32,10 +32,13 @@ public class CommandThread {
 	}
 
 	private static void reply() {
+		String[] addrInfo = Application.getRecentAddr();
+		String recentIpAddr = addrInfo[0];
+		int recentPortNumber = Integer.parseInt(addrInfo[1]);
 		try {
-			Socket socket = new Socket(Application.recentIpAddr, Application.recentPortAddr);
-			logger.info("Successfully connect to " + Application.recentIpAddr + ":" + Application.recentPortAddr);
-			logger.info("Now your standard input will send to " + Application.recentIpAddr + ":" + Application.recentPortAddr);
+			Socket socket = new Socket(recentIpAddr, recentPortNumber);
+			logger.info("Successfully connect to " + recentIpAddr + ":" + recentPortNumber);
+			logger.info("Now your standard input will send to " + recentIpAddr + ":" + recentPortNumber);
 
 			Thread thread = SocketThreadManager.writeThread(socket);
 			thread.start();

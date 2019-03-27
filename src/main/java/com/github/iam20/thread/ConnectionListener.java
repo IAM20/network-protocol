@@ -16,7 +16,7 @@ public class ConnectionListener {
 					logger.info("Someone connects you..!");
 					SocketThreadManager.listenThread(sock).start();
 				} catch (Exception e) {
-					System.out.println(e.getMessage());
+					logger.error(e.getMessage());
 				}
 			}
 		});
