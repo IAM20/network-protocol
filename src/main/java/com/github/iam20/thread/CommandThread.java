@@ -3,9 +3,10 @@ package com.github.iam20.thread;
 import java.net.Socket;
 import java.util.Scanner;
 
-import com.github.iam20.core.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.github.iam20.core.Application;
 
 public class CommandThread {
 	private static final Logger logger = LoggerFactory.getLogger(CommandThread.class);

@@ -1,10 +1,10 @@
 package com.github.iam20.thread;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ConnectionListener {
 	private static final Logger logger = LoggerFactory.getLogger(ConnectionListener.class);

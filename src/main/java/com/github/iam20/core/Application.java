@@ -13,10 +13,6 @@ public class Application {
 	private static int MY_PORT = 18080;
 	public final static Scanner scanner = new Scanner(System.in);
 
-	public static void run() throws IOException {
-		run(18080);
-	}
-
 	public static void run(int port) throws IOException {
 		MY_PORT = port;
 		ServerSocket server = new ServerSocket(port);
