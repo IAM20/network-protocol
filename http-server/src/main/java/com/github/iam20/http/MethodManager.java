@@ -76,7 +76,7 @@ public class MethodManager {
 	                                            DataOutputStream outputStream) {
 		File file = new File("." + element);
 
-		if (!file.exists()) {
+		if (!file.exists() || element.equals("/index.html")) {
 			sendBadRequestString(outputStream);
 			return;
 		}
@@ -94,7 +94,7 @@ public class MethodManager {
 		StringBuilder buf = new StringBuilder();
 		int ch;
 		String inputLine;
-		while (true) {
+		while (reader.ready()) {
 			inputLine = reader.readLine();
 			if (inputLine == null || inputLine.equals("")) {
 				break;
