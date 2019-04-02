@@ -6,9 +6,9 @@ public class Application {
 	public static final Scanner scanner = new Scanner(System.in);
 
 	public static void run() {
-		String method = "";
+		String method;
 		while (true) {
-			System.out.println("Input your method");
+			System.out.print("Input your method(get, post, etc..) : ");
 			method = scanner.next();
 
 			if (method.equalsIgnoreCase("q") ||

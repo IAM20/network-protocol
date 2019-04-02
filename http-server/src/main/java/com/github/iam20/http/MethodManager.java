@@ -46,6 +46,10 @@ public class MethodManager {
 	public static void makePostMethodResponse(String element,
 	                                          BufferedReader reader,
 	                                          DataOutputStream outputStream) throws IOException {
+		if (element.equals("/index.html")) {
+			sendBadRequestString(outputStream);
+			return;
+		}
 		String result = writeFile(element, reader);
 		sendCreatedString(result, outputStream);
 	}
@@ -53,6 +57,10 @@ public class MethodManager {
 	public static void makePutMethodResponse(String element,
 	                                         BufferedReader reader,
 	                                         DataOutputStream outputStream) throws IOException {
+		if (element.equals("/index.html")) {
+			sendBadRequestString(outputStream);
+			return;
+		}
 		File file = new File("." + element);
 
 		if (!file.exists()) {
@@ -85,12 +93,19 @@ public class MethodManager {
 
 		StringBuilder buf = new StringBuilder();
 		int ch;
+		String inputLine;
+		while (true) {
+			inputLine = reader.readLine();
+			if (inputLine == null || inputLine.equals("")) {
+				break;
+			}
+		}
 
 		while (reader.ready())  {
 			ch = reader.read();
 			buf.append((char)ch);
 		}
-		logger.debug("{}", buf.toString());
+
 		fileOutputStream.write(buf.toString().getBytes());
 		fileOutputStream.flush();
 		fileOutputStream.close();

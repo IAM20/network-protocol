@@ -23,6 +23,7 @@ public class HttpRequestMessage {
 			logger.error("This is not valid request check your method and header");
 			return;
 		}
+
 		try {
 			String retMsg = HttpRequestManager.sendRequest(url, method, body, header);
 			logger.info("Response msg below\n{}", retMsg);
@@ -32,9 +33,6 @@ public class HttpRequestMessage {
 	}
 
 	private boolean isValidRequest() {
-		if (method == null || header == null) {
-			return false;
-		}
-		return true;
+		return !(method == null || header == null);
 	}
 }

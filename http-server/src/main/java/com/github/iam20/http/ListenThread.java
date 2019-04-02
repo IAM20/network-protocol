@@ -39,6 +39,9 @@ public class ListenThread implements Runnable {
 
 	private void process() throws IOException {
 		String requestMethod = reader.readLine();
+		if (requestMethod == null) {
+			return;
+		}
 		logger.debug(requestMethod);
 
 		StringTokenizer tokenizer = new StringTokenizer(requestMethod);
