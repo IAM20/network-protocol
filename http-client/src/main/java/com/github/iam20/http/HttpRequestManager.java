@@ -26,21 +26,24 @@ public class HttpRequestManager {
 		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
 		urlConnection.setRequestMethod(method);
-		urlConnection.setDoOutput(true);
 
 		Set<Map.Entry<String, String>> entrySet = header.entrySet();
 		for (Map.Entry<String, String> entry : entrySet) {
 			urlConnection.setRequestProperty(entry.getKey(), entry.getValue());
 		}
-
 		urlConnection.setConnectTimeout(TIMEOUT_DURATION);
+
+		if (method.equals("POST") || method.equals("PUT")) {
+			urlConnection.setDoOutput(true);
+			DataOutputStream outputStream = new DataOutputStream(urlConnection.getOutputStream());
+			outputStream.writeBytes(UrlValidateChecker.makeValidElement(element));
+		}
 		urlConnection.connect();
-		DataOutputStream outputStream = new DataOutputStream(urlConnection.getOutputStream());
-		outputStream.writeBytes(UrlValidateChecker.makeValidElement(element));
 
-
-		logger.info("Sending GET request to specified URL : " + urlString);
+		logger.debug(method);
+		logger.info("Sending " + urlConnection.getRequestMethod() + " request to specified URL : " + urlString);
 		int responseCode = urlConnection.getResponseCode();
+		logger.debug("{}", responseCode);
 		try {
 			if (HttpURLConnection.HTTP_OK != responseCode &&
 				HttpURLConnection.HTTP_CREATED != responseCode &&

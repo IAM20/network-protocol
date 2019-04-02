@@ -48,7 +48,7 @@ public class HttpRequestHandler {
 	}
 
 	private static String makePostPutDataBody() {
-		System.out.println("Input your file path : ");
+		System.out.print("Input your file path : ");
 		String filePath = scanner.next();
 
 		try {
