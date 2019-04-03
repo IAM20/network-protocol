@@ -50,6 +50,9 @@ public class ListenThread implements Runnable {
 
 		switch (parseHttpMethod(method)) {
 			case GET_METHOD:
+				if (element == null || element.equals("/") || element.equals("")) {
+					element = "/index.html";
+				}
 				makeGetMethodResponse(element, outputStream);
 				break;
 			case PUT_METHOD:
