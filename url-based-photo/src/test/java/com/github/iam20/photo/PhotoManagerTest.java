@@ -22,7 +22,8 @@ import com.github.iam20.photo.msg.H2Sqls;
 
 @Slf4j
 public class PhotoManagerTest {
-	private final String TEST_H2_DB_PATH = "~/url-based-photo/test";
+	private final String HOME_DIR = System.getProperty("user.home");
+	private final String TEST_H2_DB_PATH = HOME_DIR + "/url-based-photo/test-db/";
 
 	private PhotoManager photoManager;
 	private Date date = new Date();
@@ -32,7 +33,7 @@ public class PhotoManagerTest {
 	@Before
 	public void setUpH2Db() {
 		DataSource dataSource = DataSourceBuilder.create()
-				.url("jdbc:h2:" + TEST_H2_DB_PATH + "?database_to_upper=false")
+				.url("jdbc:h2:" + TEST_H2_DB_PATH + "/test?database_to_upper=false")
 				.driverClassName("org.h2.Driver")
 				.build();
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -118,7 +119,17 @@ public class PhotoManagerTest {
 	@After
 	public void deleteH2Db() {
 		File file = new File(TEST_H2_DB_PATH);
-		fileDelete(file);
+
+		String[] fileList = file.list();
+		if (fileList == null) {
+			log.error("Unexpected null ptr");
+			return;
+		}
+
+		for(String fileName : fileList) {
+			File f = new File(TEST_H2_DB_PATH, fileName);
+			fileDelete(f);
+		}
 	}
 
 	private void fileDelete(@NotNull File file) {
