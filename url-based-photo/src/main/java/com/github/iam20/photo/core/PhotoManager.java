@@ -77,14 +77,14 @@ public class PhotoManager {
 		jdbcTemplate.update(UPDATE_PHOTO_BY_ID, namedParameters);
 	}
 
-	public void deletePhoto(Photo photo) {
+	public int deletePhoto(Photo photo) {
 		namedParameters.addValue("photoId", photo.getId());
-		jdbcTemplate.update(DELETE_PHOTO_BY_ID, namedParameters);
+		return jdbcTemplate.update(DELETE_PHOTO_BY_ID, namedParameters);
 	}
 
-	public void deletePhotoGroup (PhotoGroup group) {
+	public int deletePhotoGroup (PhotoGroup group) {
 		namedParameters.addValue("groupId", group.getId());
-		jdbcTemplate.update(DELETE_PHOTO_GROUP_BY_ID, namedParameters);
+		return jdbcTemplate.update(DELETE_PHOTO_GROUP_BY_ID, namedParameters);
 	}
 
 }

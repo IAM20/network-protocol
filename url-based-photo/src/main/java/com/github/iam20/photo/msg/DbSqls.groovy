@@ -54,40 +54,62 @@ SELECT * FROM photo_group WHERE name = :groupName
 '''
 
 public static final String INSERT_PHOTO_GROUP = '''
-INSERT INTO photo_group VALUES ( :groupName );
+INSERT INTO photo_group (name) VALUES ( :groupName );
 '''
 
 public static final String INSERT_PHOTO_FULL_ARGS = '''
-INSERT INTO photo VALUES ( :name , :photoGroupId , :mimeType , :url , :comment )
+INSERT INTO photo (
+	name,
+	photo_group_id,
+	mime_type,
+	url,
+	comment
+) VALUES (
+	:name ,
+	:photoGroupId ,
+	:mimeType ,
+	:url ,
+	:comment
+);
 '''
 
 public static final String INSERT_PHOTO_FOUR_ARGS = '''
-INSERT INTO photo () VALUES ( :name , :photoGroupId , :mimeType ,  :url )
+INSERT INTO photo (
+	name,
+	photo_group_id,
+	mime_type,
+	url
+) VALUES ( 
+	:name , 
+	:photoGroupId , 
+	:mimeType ,  
+	:url 
+);
 '''
 
 public static final String UPDATE_PHOTO_BY_ID = '''
 UPDATE photo
 SET 
-	name = :name
-	photo_group_id = :groupId
-	mime_type = :mimeType
-	url = :url
+	name = :name ,
+	photo_group_id = :groupId ,
+	mime_type = :mimeType ,
+	url = :url ,
 	comment = :comment
-WHERE id = :photoId
+WHERE id = :photoId ;
 '''
 
 public static final String UPDATE_PHOTO_GROUP_BY_ID = '''
 UPDATE photo_group
 SET
 	name = :name
-WHERE id = :groupId
+WHERE id = :groupId ;
 '''
 
 public static final String DELETE_PHOTO_BY_ID = '''
-DELETE FROM photo WHERE id = :photoId
+DELETE FROM photo WHERE id = :photoId ;
 '''
 
 public static final String DELETE_PHOTO_GROUP_BY_ID = '''
-DELETE FROM photo_group WHERE id = :groupId
+DELETE FROM photo_group WHERE id = :groupId ;
 '''
 }
