@@ -2,8 +2,9 @@ package com.github.iam20.photo.core;
 
 import static com.github.iam20.photo.msg.DbSqls.*;
 
-import com.github.iam20.photo.model.Photo;
-import com.github.iam20.photo.model.PhotoGroup;
+import javax.sql.DataSource;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,8 +12,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
-import java.util.List;
+import com.github.iam20.photo.model.Photo;
+import com.github.iam20.photo.model.PhotoGroup;
 
 @Component
 public class PhotoManager {

@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS photo (
 '''
 
 public static final String INSERT_BASIC_PHOTO_GROUP = '''
-INSERT INTO photo_group VALUES ("default");
+INSERT INTO photo_group VALUES ("all");
 '''
 
 public static final String GET_CNT_OF_PHOTO_GROUP = '''

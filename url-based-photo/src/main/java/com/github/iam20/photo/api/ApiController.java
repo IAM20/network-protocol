@@ -1,13 +1,14 @@
 package com.github.iam20.photo.api;
 
-import com.github.iam20.photo.core.PhotoManager;
-import com.github.iam20.photo.model.Photo;
-import com.github.iam20.photo.model.PhotoGroup;
+import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.github.iam20.photo.core.PhotoManager;
+import com.github.iam20.photo.model.Photo;
+import com.github.iam20.photo.model.PhotoGroup;
 
 @Slf4j
 @RestController
@@ -19,25 +20,29 @@ public class ApiController {
 		photoManager = manager;
 	}
 
-	@GetMapping("/{photoGroupName}")
+	@GetMapping("group/{photoGroupName}")
 	public PhotoGroup getPhotoByGroupName(@PathVariable String photoGroupName) {
 		PhotoGroup group = photoManager.getPhotoByGroupName(photoGroupName);
+
+		if (group == null) {
+			throw new NotFoundException("Group " + photoGroupName + " does not exists");
+		}
 		List<Photo> photoList = photoManager.getPhotoByGroupId(group.getId());
 		group.setPhotoList(photoList);
 		return group;
 	}
 
-	@GetMapping("/all/photo/{photoId}")
+	@GetMapping("group/all/photo/{photoId}")
 	public Photo getPhotoById(@PathVariable String photoId) {
 		return returnPhotoById(photoId);
 	}
 
-	@PostMapping("/{photoGroupName}")
+	@PostMapping("group/{photoGroupName}")
 	public PhotoGroup postPhotoGroupByName(@PathVariable String photoGroupName) {
 		PhotoGroup group = photoManager.getPhotoByGroupName(photoGroupName);
 		if (group != null) {
 			// 400 BAD REQUEST
-			throw new BadRequestException();
+			throw new BadRequestException("Group " + photoGroupName + " does exist");
 		}
 
 		group = PhotoGroup.builder()
@@ -48,20 +53,29 @@ public class ApiController {
 		return group;
 	}
 
-	@PostMapping("/{photoGroupName}/photo")
+	/**
+	 * Minimum requirements
+	 * {
+	 *     "url" : "https://github.com/iam20/0ea-ffff-f038"
+	 *     "mimeType" : "jpg"
+	 * }
+	 */
+	@PostMapping("group/{photoGroupName}/photo")
 	public Photo postPhotoIntoGroupName(@PathVariable String photoGroupName, @RequestBody Photo photo) {
 		PhotoGroup group = photoManager.getPhotoByGroupName(photoGroupName);
 		if (group == null) {
-			throw new BadRequestException();
+			throw new BadRequestException("Group " + photoGroupName + " does not exist");
+		} else if (isPhotoRequestBodyCorrect(photo)) {
+			throw new BadRequestException("Request body must have url and mime-type member");
 		}
 		photoManager.insertPhoto(group, photo);
 		return photo;
 	}
 
-	@PutMapping("/{photoGroupName}")
+	@PutMapping("group/{photoGroupName}")
 	public PhotoGroup modifyPhotoGroup(@PathVariable String photoGroupName, @RequestBody PhotoGroup group) {
 		PhotoGroup photoGroup = photoManager.getPhotoByGroupName(photoGroupName);
-		if (photoGroup == null) {
+		if (photoGroup == null || photoGroup.getName().equals("all")) {
 			throw new BadRequestException();
 		}
 		photoGroup.setName(group.getName());
@@ -69,11 +83,20 @@ public class ApiController {
 		return photoGroup;
 	}
 
-	@PutMapping("/all/photo/{photoId}")
+	/**
+	 * Minimum requirements
+	 * {
+	 *     "url" : "https://github.com/iam20/image/0ea-8883-daf"
+	 *     "mimeType" : "jpg"
+	 * }
+	 */
+	@PutMapping("group/all/photo/{photoId}")
 	public Photo modifyPhoto(@PathVariable String photoId, @RequestBody Photo receivedPhoto) {
 		if (photoId == null || "".equals(photoId)) {
 			// 404 PAGE NOT FOUND
 			throw new NotFoundException();
+		} else if (isPhotoRequestBodyCorrect(receivedPhoto)) {
+			throw new BadRequestException("Request type must have url and mime-type member");
 		}
 		long id = Long.parseLong(photoId);
 		Photo photo = photoManager.getPhotoById(id);
@@ -96,7 +119,7 @@ public class ApiController {
 		return photo;
 	}
 
-	@DeleteMapping("/{photoGroupName}")
+	@DeleteMapping("group/{photoGroupName}")
 	public void deletePhotoGroup(@PathVariable String photoGroupName) {
 		PhotoGroup group = photoManager.getPhotoByGroupName(photoGroupName);
 		if (group == null) {
@@ -105,7 +128,7 @@ public class ApiController {
 		photoManager.deletePhotoGroup(group);
 	}
 
-	@DeleteMapping("/all/photo/{photoId}")
+	@DeleteMapping("group/all/photo/{photoId}")
 	public void deletePhotoId(@PathVariable String photoId) {
 		photoManager.deletePhoto(returnPhotoById(photoId));
 	}
@@ -116,5 +139,9 @@ public class ApiController {
 		}
 		long id = Long.parseLong(photoId);
 		return photoManager.getPhotoById(id);
+	}
+
+	private boolean isPhotoRequestBodyCorrect(Photo photo) {
+		return !(photo == null || photo.getUrl() == null || photo.getMimeType() == null);
 	}
 }
