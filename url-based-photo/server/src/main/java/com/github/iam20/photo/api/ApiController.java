@@ -65,7 +65,8 @@ public class ApiController {
 		PhotoGroup group = photoManager.getPhotoByGroupName(photoGroupName);
 		if (group == null) {
 			throw new BadRequestException("Group " + photoGroupName + " does not exist");
-		} else if (isPhotoRequestBodyCorrect(photo)) {
+		} else if (!isPhotoRequestBodyCorrect(photo)) {
+			log.error("{}", photo.getMimeType());
 			throw new BadRequestException("Request body must have url and mime-type member");
 		}
 		photoManager.insertPhoto(group, photo);
@@ -95,7 +96,7 @@ public class ApiController {
 		if (photoId == null || "".equals(photoId)) {
 			// 404 PAGE NOT FOUND
 			throw new NotFoundException();
-		} else if (isPhotoRequestBodyCorrect(receivedPhoto)) {
+		} else if (!isPhotoRequestBodyCorrect(receivedPhoto)) {
 			throw new BadRequestException("Request type must have url and mime-type member");
 		}
 		long id = Long.parseLong(photoId);
