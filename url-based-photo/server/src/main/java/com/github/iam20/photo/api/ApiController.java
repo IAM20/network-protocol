@@ -4,6 +4,7 @@ import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import com.github.iam20.photo.core.PhotoManager;
@@ -39,7 +40,12 @@ public class ApiController {
 
 	@PostMapping("group/{photoGroupName}")
 	public PhotoGroup postPhotoGroupByName(@PathVariable String photoGroupName) {
-		PhotoGroup group = photoManager.getPhotoByGroupName(photoGroupName);
+		PhotoGroup group;
+		try {
+			group = photoManager.getPhotoByGroupName(photoGroupName);
+		} catch (EmptyResultDataAccessException e) {
+			group = null;
+		}
 		if (group != null) {
 			// 400 BAD REQUEST
 			throw new BadRequestException("Group " + photoGroupName + " does exist");
@@ -62,7 +68,12 @@ public class ApiController {
 	 */
 	@PostMapping("group/{photoGroupName}/photo")
 	public Photo postPhotoIntoGroupName(@PathVariable String photoGroupName, @RequestBody Photo photo) {
-		PhotoGroup group = photoManager.getPhotoByGroupName(photoGroupName);
+		PhotoGroup group;
+		try {
+			group = photoManager.getPhotoByGroupName(photoGroupName);
+		} catch (EmptyResultDataAccessException e) {
+			group = null;
+		}
 		if (group == null) {
 			throw new BadRequestException("Group " + photoGroupName + " does not exist");
 		} else if (!isPhotoRequestBodyCorrect(photo)) {

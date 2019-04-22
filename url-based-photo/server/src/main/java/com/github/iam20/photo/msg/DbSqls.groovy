@@ -37,8 +37,7 @@ SELECT
     p.url as url ,
     p.comment as comment
 FROM photo p
-JOIN photo_group pg
-ON p.photo_group_id = :groupId;
+WHERE p.photo_group_id = :groupId;
 '''
 
 public static final String GET_PHOTO_GROUP_BY_ID = '''
@@ -54,7 +53,7 @@ SELECT * FROM photo_group WHERE name = :groupName
 '''
 
 public static final String INSERT_PHOTO_GROUP = '''
-INSERT INTO photo_group (name) VALUES ( :groupName );
+INSERT INTO photo_group ( name ) VALUES ( :groupName );
 '''
 
 public static final String INSERT_PHOTO_FULL_ARGS = '''
