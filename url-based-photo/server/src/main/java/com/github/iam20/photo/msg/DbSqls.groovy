@@ -40,6 +40,10 @@ FROM photo p
 WHERE p.photo_group_id = :groupId;
 '''
 
+public static final String GET_ALL_PHOTO_GROUP = '''
+SELECT * FROM photo_group
+'''
+
 public static final String GET_PHOTO_GROUP_BY_ID = '''
 SELECT * FROM photo_group WHERE id = :groupId
 '''

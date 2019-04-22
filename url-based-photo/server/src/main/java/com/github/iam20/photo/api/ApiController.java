@@ -21,6 +21,15 @@ public class ApiController {
 		photoManager = manager;
 	}
 
+	@GetMapping("group")
+	public List<PhotoGroup> getPhotoGroupAll() {
+		List<PhotoGroup> groups = photoManager.getAllPhotoGroup();
+		for (PhotoGroup group : groups) {
+			group.setPhotoList(photoManager.getPhotoByGroupId(group.getId()));
+		}
+		return groups;
+	}
+
 	@GetMapping("group/{photoGroupName}")
 	public PhotoGroup getPhotoByGroupName(@PathVariable String photoGroupName) {
 		PhotoGroup group = photoManager.getPhotoByGroupName(photoGroupName);

@@ -28,6 +28,10 @@ public class PhotoManager {
 		namedParameters = new MapSqlParameterSource();
 	}
 
+	public List<PhotoGroup> getAllPhotoGroup() {
+		return jdbcTemplate.query(GET_ALL_PHOTO_GROUP, photoGroupRowMapper);
+	}
+
 	public PhotoGroup getPhotoGroupById(long id) {
 		namedParameters.addValue("groupId", id);
 		return jdbcTemplate.queryForObject(GET_PHOTO_GROUP_BY_ID, namedParameters, photoGroupRowMapper);
