@@ -89,6 +89,7 @@ public class PhotoManager {
 
 	public int deletePhotoGroup (PhotoGroup group) {
 		namedParameters.addValue("groupId", group.getId());
+		jdbcTemplate.update(DELETE_PHOTO_BY_GROUP_ID, namedParameters);
 		return jdbcTemplate.update(DELETE_PHOTO_GROUP_BY_ID, namedParameters);
 	}
 

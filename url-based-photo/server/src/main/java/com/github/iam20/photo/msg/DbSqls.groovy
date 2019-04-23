@@ -108,6 +108,10 @@ SET
 WHERE id = :groupId ;
 '''
 
+public static final String DELETE_PHOTO_BY_GROUP_ID = '''
+DELETE FROM photo WHERE photo_group_id = :groupId;
+'''
+
 public static final String DELETE_PHOTO_BY_ID = '''
 DELETE FROM photo WHERE id = :photoId ;
 '''
