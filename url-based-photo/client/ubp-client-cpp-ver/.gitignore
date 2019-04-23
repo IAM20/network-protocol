@@ -1,0 +1,4 @@
+cmake-build-debug/
+github-uploader-binary/
+build/
+package-lock.json
