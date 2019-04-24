@@ -6,6 +6,7 @@
 #define UBP_CLIENT_CPP_VER_PHOTOTHUMBNAILFORUPLOAD_H
 
 
+#include <QLabel>
 #include <QWidget>
 #include <QPushButton>
 
@@ -32,6 +33,12 @@ private:
 	std::vector<Photo> photos;
 	PhotoGroup * photoGroup;
 	QPushButton * pushButton;
+	QLabel * thumbnails[4] = {
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr
+	};
 	long groupId;
 	QString groupName;
 	PhotoManager * photoManager;

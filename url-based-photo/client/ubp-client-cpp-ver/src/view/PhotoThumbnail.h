@@ -7,6 +7,7 @@
 
 #include <vector>
 
+#include <QLabel>
 #include <QPushButton>
 #include <QStackedWidget>
 
@@ -24,6 +25,12 @@ private slots:
 private:
 	std::vector<Photo> photos;
 	QPushButton * pushButton;
+	QLabel * thumbnails[4] = {
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr
+	};
 };
 
 

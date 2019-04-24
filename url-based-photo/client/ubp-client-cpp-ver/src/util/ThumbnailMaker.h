@@ -12,8 +12,8 @@
 
 class ThumbnailMaker {
 public:
-	static void makeThumbnailOfPhotoGroup(std::vector<Photo> photos, QWidget * parent);
-	static void makeThumbnailOfPhotoGroup(PhotoGroup *group, QWidget *parent);
+	static void makeThumbnailOfPhotoGroup(std::vector<Photo> photos, QWidget * parent, QLabel * thumbnails[4]);
+	static void makeThumbnailOfPhotoGroup(PhotoGroup *group, QWidget *parent, QLabel * thumbnails[4]);
 	static const std::pair<int, int> movePointer[4];
 };
 

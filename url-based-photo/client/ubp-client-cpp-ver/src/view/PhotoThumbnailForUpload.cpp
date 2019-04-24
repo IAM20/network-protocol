@@ -4,7 +4,6 @@
 
 #include "PhotoThumbnailForUpload.h"
 
-#include <QLabel>
 #include <QDebug>
 #include <QUrl>
 #include <QStandardPaths>
@@ -44,7 +43,7 @@ QString PhotoThumbnailForUpload::getGroupName() {
 }
 
 void PhotoThumbnailForUpload::updateThumbnail() {
-	ThumbnailMaker::makeThumbnailOfPhotoGroup(photos, pushButton);
+	ThumbnailMaker::makeThumbnailOfPhotoGroup(photos, pushButton, thumbnails);
 	this->update();
 }
 

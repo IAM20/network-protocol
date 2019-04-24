@@ -26,7 +26,7 @@ PhotoThumbnail::PhotoThumbnail(QWidget *parent,
 	photos = group->getPhotoList();
 
 	this->resize(475, 475);
-	ThumbnailMaker::makeThumbnailOfPhotoGroup(group, pushButton);
+	ThumbnailMaker::makeThumbnailOfPhotoGroup(group, pushButton, thumbnails);
 
 	connect(pushButton, SIGNAL(released()), this, SLOT(handleButton()));
 }
