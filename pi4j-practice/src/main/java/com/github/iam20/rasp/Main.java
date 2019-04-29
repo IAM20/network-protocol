@@ -12,15 +12,18 @@ public class Main {
 		// create soft-pwm pins (min=0 ; max=100)
 		SoftPwm.softPwmCreate(1, 0, 100);
 
-		for (int i = 0; i <= 100; i++) {
-			SoftPwm.softPwmWrite(1, i);
-			Thread.sleep(100);
-		}
 
-		// fade LED to fully OFF
-		for (int i = 100; i >= 0; i--) {
-			SoftPwm.softPwmWrite(1, i);
-			Thread.sleep(100);
+		for (int j = 0; j <= 1000; j++) {
+			for (int i = 0; i <= 100; i++) {
+				SoftPwm.softPwmWrite(1, i);
+				Thread.sleep(100);
+			}
+
+			// fade LED to fully OFF
+			for (int i = 100; i >= 0; i--) {
+				SoftPwm.softPwmWrite(1, i);
+				Thread.sleep(100);
+			}
 		}
 
 		// make sure to stop software PWM driver/thread if you done with it.
