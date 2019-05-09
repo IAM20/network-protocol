@@ -1,10 +1,13 @@
 package com.github.iam20.config;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+@Slf4j
 public class ApplicationConfig {
 
 	private static int pollingInterval;
@@ -18,14 +21,14 @@ public class ApplicationConfig {
 	private static String control;
 
 	public static void init() {
-		try (InputStream input = new FileInputStream("classpath:/resources/application.properties")) {
+		try (InputStream input = ApplicationConfig.class.getClassLoader().getResourceAsStream("application.properties")) {
 			Properties properties = new Properties();
 			properties.load(input);
 			mySystemId = (String)properties.get("systemId");
 			serverIp = (String)properties.get("serverIp");
 			coapServerPort = (String)properties.get("serverPort");
 			mode = (String)properties.get("mode");
-			pollingInterval = (Integer)properties.get("pollingInterval");
+			pollingInterval = Integer.parseInt((String)properties.get("pollingInterval"));
 		} catch (IOException e) {
 			mySystemId = "DEVICE1";
 			serverIp = "127.0.0.1";
@@ -33,6 +36,7 @@ public class ApplicationConfig {
 			mode = "push";
 			pollingInterval = 3000;
 		}
+		log.info(serverIp);
 	}
 
 	public static int getPollingInterval() {
