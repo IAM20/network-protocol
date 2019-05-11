@@ -35,4 +35,13 @@ public class DeviceInfo {
 
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "deviceId : " + deviceId + "\n" +
+				"mode : " + mode + "\n" +
+				"state : " + state +"\n" +
+				"event : " + event + "\n" +
+				"eventFlag : " + eventFlag +"\n";
+	}
 }

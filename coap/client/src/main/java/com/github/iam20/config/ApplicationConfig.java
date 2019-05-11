@@ -18,10 +18,12 @@ public class ApplicationConfig {
 	private static String serverIp = "127.0.0.1";
 
 	private static String state = "off";
-	private static String control;
+	private static String control = "ON";
 
 	public static void init() {
-		try (InputStream input = ApplicationConfig.class.getClassLoader().getResourceAsStream("application.properties")) {
+		try (InputStream input = ApplicationConfig.class
+				.getClassLoader()
+				.getResourceAsStream("application.properties")) {
 			Properties properties = new Properties();
 			properties.load(input);
 			mySystemId = (String)properties.get("systemId");
