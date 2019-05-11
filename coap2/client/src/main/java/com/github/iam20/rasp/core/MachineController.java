@@ -1,5 +1,7 @@
 package com.github.iam20.rasp.core;
 
+import static com.pi4j.wiringpi.Gpio.wiringPiSetup;
+
 import com.github.iam20.rasp.model.Device;
 import com.pi4j.wiringpi.SoftPwm;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ public class MachineController extends Thread {
 
 	@Override
 	public void run() {
+		wiringPiSetup();
 		SoftPwm.softPwmCreate(PIN_NUMBER, 0, 100);
 		while (true) {
 			int dimmingValue = device.getDimmingValue();
