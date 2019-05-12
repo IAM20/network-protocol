@@ -1,12 +1,13 @@
 package com.github.iam20.rasp.config;
 
-import com.github.iam20.rasp.model.Device;
-import com.github.iam20.rasp.model.DeviceBuilder;
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import lombok.extern.slf4j.Slf4j;
+
+import com.github.iam20.rasp.model.Device;
+import com.github.iam20.rasp.model.DeviceBuilder;
 
 @Slf4j
 public class ApplicationConfig {

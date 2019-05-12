@@ -2,16 +2,17 @@ package com.github.iam20.rasp.coap;
 
 import static com.github.iam20.rasp.util.TimerTaskWrapper.wrap;
 
-import com.github.iam20.rasp.config.ApplicationConfig;
-import com.github.iam20.rasp.core.MachineController;
-import com.github.iam20.rasp.model.Device;
+import java.util.Timer;
+
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.json.JSONObject;
 
-import java.util.Timer;
+import com.github.iam20.rasp.config.ApplicationConfig;
+import com.github.iam20.rasp.core.MachineController;
+import com.github.iam20.rasp.model.Device;
 
 @Slf4j
 public class ConnectionManager {

@@ -1,8 +1,8 @@
 package com.github.iam20.coap.core;
 
-import com.github.iam20.coap.model.Device;
-
 import java.util.Scanner;
+
+import com.github.iam20.coap.model.Device;
 
 public class CoapServerService {
 	private static final Scanner scanner = new Scanner(System.in);

@@ -2,9 +2,10 @@ package com.github.iam20.rasp.core;
 
 import static com.pi4j.wiringpi.Gpio.wiringPiSetup;
 
-import com.github.iam20.rasp.model.Device;
 import com.pi4j.wiringpi.SoftPwm;
 import lombok.extern.slf4j.Slf4j;
+
+import com.github.iam20.rasp.model.Device;
 
 @Slf4j
 public class MachineController extends Thread {

@@ -1,15 +1,16 @@
 package com.github.iam20.coap.service;
 
-import com.github.iam20.coap.core.CoapServerApplication;
-import com.github.iam20.coap.model.Device;
-import com.github.iam20.coap.msg.Message;
-import com.github.iam20.coap.util.ParseDeviceInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.json.JSONObject;
+
+import com.github.iam20.coap.core.CoapServerApplication;
+import com.github.iam20.coap.model.Device;
+import com.github.iam20.coap.msg.Message;
+import com.github.iam20.coap.util.ParseDeviceInfo;
 
 @Slf4j
 public class DeviceService extends CoapResource {

@@ -1,12 +1,12 @@
 package com.github.iam20.coap.core;
 
-import com.github.iam20.coap.model.Device;
-import com.github.iam20.coap.service.DeviceService;
-import org.eclipse.californium.core.CoapResource;
-import org.eclipse.californium.core.CoapServer;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import org.eclipse.californium.core.CoapServer;
+
+import com.github.iam20.coap.model.Device;
+import com.github.iam20.coap.service.DeviceService;
 
 public class CoapServerApplication {
 	private static Map<String, Device> deviceMap = new HashMap<>();
